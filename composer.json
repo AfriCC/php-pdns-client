@@ -1,0 +1,23 @@
+{
+    "name": "africc/pdns-client",
+    "description": "A PowerDNS API Client",
+    "keywords": ["dns", "pdns", "api", "client", "powerdns", "domains"],
+    "homepage": "https://github.com/AfriCC/php-pdns-client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AfriCC",
+            "email": "hello@afri.cc",
+            "homepage": "https://afri.cc"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {"AfriCC\\": "src/"}
+    }
+}
