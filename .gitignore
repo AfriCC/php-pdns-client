@@ -1,0 +1,15 @@
+# OSX specific
+.DS_Store
+
+# Ignore-IDE: Eclipse/ZendStudio/WebStorm
+/.settings/
+/.buildpath
+/.project
+/.idea/
+
+# Composer
+/vendor/
+
+# Node Files #
+/node_modules/
+/bower_components/
