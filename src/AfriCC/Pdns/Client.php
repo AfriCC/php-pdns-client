@@ -22,8 +22,6 @@ class Client
 
     protected $api_key;
 
-    protected $last_response_headers = [];
-
     public function __construct($host, $api_key, $port = 8081)
     {
         $this->host = (string) $host;
@@ -59,15 +57,14 @@ class Client
 
         $context = stream_context_create($context);
 
-        $result = file_get_contents($this->url($endpoint->getUri()), false, $context);
-        if (!$result) {
+        $result = @file_get_contents($this->url($endpoint->getUri()), false, $context);
+        if ($result === false) {
             throw new Exception('Unable to connect to PDNS API');
         }
 
-        $this->last_response_headers = $http_response_header;
         $result = json_decode($result);
         if (!empty($result->error)) {
-            throw new Exception($result->error, $this->getHttpResponseCode());
+            throw new Exception($result->error, $this->getHttpResponseCode($http_response_header));
         }
 
         return $result;
@@ -78,13 +75,13 @@ class Client
         return sprintf('http://%s:%d%s', $this->host, $this->port, $uri);
     }
 
-    protected function getHttpResponseCode()
+    protected function getHttpResponseCode(array $http_response_header)
     {
-        if (empty($this->last_response_headers[0])) {
+        if (empty($http_response_header[0])) {
             return 0;
         }
 
-        if (!preg_match('~^HTTP/1\.[01]\s*([0-9]{3})~i', $this->last_response_headers[0], $match)) {
+        if (!preg_match('~^HTTP/1\.[01]\s*([0-9]{3})~i', $http_response_header[0], $match)) {
             return 0;
         }
 
