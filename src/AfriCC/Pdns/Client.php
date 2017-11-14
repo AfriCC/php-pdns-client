@@ -48,7 +48,7 @@ class Client
         $context = [
             'http' => [
                 'method' => $endpoint->getMethod(),
-                'header' => $headers,
+                'header' => implode("\r\n", $headers),
                 'user_agent' => 'africc-pdns-client/1.0 (+https://github.com/AfriCC/php-pdns-client)',
                 'content' => $endpoint->getPayload(),
                 'protocol_version' => 1.1,
