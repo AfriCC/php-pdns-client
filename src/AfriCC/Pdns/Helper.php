@@ -13,6 +13,13 @@ namespace AfriCC\Pdns;
 
 class Helper
 {
+    /**
+     * returns canonical domain (e.g. always returns root dot)
+     *
+     * @param string $name
+     *
+     * @return string
+     */
     public static function canonical($name)
     {
         if (substr($name, -1) !== '.') {
@@ -22,6 +29,13 @@ class Helper
         return $name;
     }
 
+    /**
+     * returns class name of given object (excluding namespace)
+     *
+     * @param object $object
+     *
+     * @return string
+     */
     public static function className($object)
     {
         return substr(strrchr(get_class($object), '\\'), 1);

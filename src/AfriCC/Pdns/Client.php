@@ -38,6 +38,7 @@ class Client
         $headers = [
             'Accept: application/json',
             'X-API-Key: ' . $this->api_key,
+            'Connection: close',
         ];
 
         if ($endpoint->getMethod() === 'POST') {
@@ -47,18 +48,22 @@ class Client
         $context = [
             'http' => [
                 'method' => $endpoint->getMethod(),
-                'header' => implode("\r\n", $headers),
+                'header' => $headers,
+                'user_agent' => 'africc-pdns-client/1.0 (+https://github.com/AfriCC/php-pdns-client)',
                 'content' => $endpoint->getPayload(),
-                'ignore_errors' => true,
+                'protocol_version' => 1.1,
                 'timeout' => 30,
+                'ignore_errors' => true,
             ]
         ];
 
         $context = stream_context_create($context);
+
         $result = file_get_contents($this->url($endpoint->getUri()), false, $context);
         if (!$result) {
             throw new Exception('Unable to connect to PDNS API');
         }
+
         $this->last_response_headers = $http_response_header;
         $result = json_decode($result);
         if (!empty($result->error)) {
