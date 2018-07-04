@@ -16,17 +16,13 @@ use AfriCC\Pdns\Endpoints\Endpointable;
 
 class Client
 {
-    protected $host;
-
-    protected $port;
+    protected $api_url;
 
     protected $api_key;
 
-    public function __construct($host, $api_key, $port = 8081)
+    public function __construct($api_url, $api_key)
     {
-        $this->host = (string) $host;
-
-        $this->port = (int) $port;
+        $this->api_url = (string) $api_url;
 
         $this->api_key = (string) $api_key;
     }
@@ -72,7 +68,7 @@ class Client
 
     protected function url($uri)
     {
-        return sprintf('http://%s:%d%s', $this->host, $this->port, $uri);
+        return $this->api_url . $uri;
     }
 
     protected function getHttpResponseCode(array $http_response_header)
