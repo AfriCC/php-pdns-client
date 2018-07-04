@@ -18,6 +18,10 @@ class Zones extends Endpoint
 {
     protected $data;
 
+    public function all()
+    {
+    }
+
     public function show($name)
     {
         $this->appendToUri(sprintf('/%s', Helper::canonical($name)));
