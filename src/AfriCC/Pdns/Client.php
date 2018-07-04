@@ -68,7 +68,7 @@ class Client
 
     protected function url($uri)
     {
-        return $this->url . $uri;
+        return $this->api_url . $uri;
     }
 
     protected function getHttpResponseCode(array $http_response_header)
