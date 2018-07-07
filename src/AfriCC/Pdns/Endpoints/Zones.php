@@ -25,6 +25,12 @@ class Zones extends Endpoint
         $this->appendToUri(sprintf('/%s', Helper::canonical($name)));
     }
 
+    public function delete($name)
+    {
+        $this->appendToUri(sprintf('/%s', Helper::canonical($name)));
+        $this->method = 'DELETE';
+    }
+
     public function add($name, array $nameservers, $account = '')
     {
         $this->method = 'POST';
