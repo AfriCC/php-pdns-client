@@ -15,6 +15,7 @@ class ZonesTest extends TestCase
 
         $this->assertEquals('/api/v1/servers/localhost/zones/bar.localdomain.', $zones->getUri());
         $this->assertEquals('PATCH', $zones->getMethod());
+        $this->assertTrue($zones->hasPayload());
         $this->assertJsonStringEqualsJsonString(
             '{"rrsets":[{"name":"foo.bar.localdomain.","type":"A","ttl":300,"records":[{"content":"127.0.0.9","disabled":false}],"changetype":"REPLACE"}]}',
             $zones->getPayload()

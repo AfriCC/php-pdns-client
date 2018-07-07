@@ -44,12 +44,15 @@ class Client
                 'method' => $endpoint->getMethod(),
                 'header' => implode("\r\n", $headers),
                 'user_agent' => 'africc-pdns-client/1.0 (+https://github.com/AfriCC/php-pdns-client)',
-                'content' => $endpoint->getPayload(),
                 'protocol_version' => 1.1,
                 'timeout' => 30,
                 'ignore_errors' => true,
             ]
         ];
+
+        if ($endpoint->hasPayload()) {
+            $context['http']['content'] = $endpoint->getPayload();
+        }
 
         $context = stream_context_create($context);
 

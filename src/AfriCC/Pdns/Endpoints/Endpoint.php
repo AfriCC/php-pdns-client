@@ -15,6 +15,8 @@ use AfriCC\Pdns\Helper;
 
 abstract class Endpoint implements Endpointable
 {
+    protected $data;
+
     protected $method = 'GET';
 
     protected $appended_uri = '';
@@ -33,7 +35,15 @@ abstract class Endpoint implements Endpointable
         return $this->method;
     }
 
-    abstract public function getPayload();
+    public function hasPayload()
+    {
+        return $this->data !== null;
+    }
+
+    public function getPayload()
+    {
+        return json_encode($this->data);
+    }
 
     protected function appendToUri($uri)
     {
