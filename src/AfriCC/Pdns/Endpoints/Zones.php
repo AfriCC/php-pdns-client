@@ -16,8 +16,6 @@ use AfriCC\Pdns\Types\Typable;
 
 class Zones extends Endpoint
 {
-    protected $data;
-
     public function all()
     {
     }
@@ -53,11 +51,6 @@ class Zones extends Endpoint
         $this->method = 'PATCH';
         $this->data = ['rrsets' => [$rrset->payload('DELETE')]];
         $this->appendToUri(sprintf('/%s', Helper::canonical($name)));
-    }
-
-    public function getPayload()
-    {
-        return json_encode($this->data);
     }
 
     protected function createNS($name, array $nameservers)
